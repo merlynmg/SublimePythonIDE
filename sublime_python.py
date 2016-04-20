@@ -336,10 +336,10 @@ def proxy_for(view):
     with PROXY_LOCK:
         for detector in python_detectors:
             python = detector()
-            if python is not None:
+            if python is not None and os.path.exists(python[0]):
                 break
 
-        if not python or not os.path.exists(python[0]):
+        if not python:
             show_python_not_found_error(python_detectors)
             return
 
